@@ -4,7 +4,9 @@ import { Main } from '../../components/Main';
 
 import { connect } from 'react-redux';
 
-import { setName } from '../../actions/userActions';
+import { setName, logOut } from '../../actions/userActions';
+
+import { TopNav } from '../../components/TopNav/TopNav';
 
 class App extends Component {
 
@@ -12,8 +14,13 @@ class App extends Component {
     return (
       <div className="App">
         <h1>{process.env.REACT_APP_NAME}</h1>
-        <Main changeUsername={() => this.props.setName('Hello')}/>
-        <User username={this.props.user.name}/>
+        <TopNav />
+        <Main
+          changeUsername={() => this.props.setName('Hello')}
+          logout={() => this.props.logOut()}
+        />
+        <User username={this.props.user.name} />
+        <i data-feather="circle" className="stroke-current text-purple inline-block h-8 w-8"></i>
       </div>
     );
   }
@@ -30,6 +37,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setName: (name) => {
       dispatch(setName(name));
+    },
+    logOut: () => {
+      dispatch(logOut());
     }
   }
 }
